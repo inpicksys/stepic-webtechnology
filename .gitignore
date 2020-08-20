@@ -4,3 +4,5 @@ venv/
 python3.4
 requirements from stepic console
 commentariy
+*.env
+.idea/
