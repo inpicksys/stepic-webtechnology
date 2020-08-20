@@ -6,3 +6,4 @@ requirements from stepic console
 commentariy
 *.env
 .idea/
+local_settings.py

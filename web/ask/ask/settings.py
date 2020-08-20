@@ -74,12 +74,21 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+try:
+    from .local_settings import DATABASES
+except ImportError:
+    DATABASES = {
+
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'qa',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': 'localhost',
+            'PORT': '',
+
+        }
     }
-}
 
 
 # Password validation
@@ -119,3 +128,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
