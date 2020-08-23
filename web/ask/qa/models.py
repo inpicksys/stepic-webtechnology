@@ -1,29 +1,7 @@
-'''
-Question - вопрос
-title - заголовок вопроса
-text - полный текст вопроса
-added_at - дата добавления вопроса
-rating - рейтинг вопроса (число)
-author - автор вопроса
-likes - список пользователей, поставивших "лайк"
-
-Answer - ответ
-text - текст ответа
-added_at - дата добавления ответа
-question - вопрос, к которому относится ответ
-author - автор ответа
-
-В качестве модели пользователя - используйте django.contrib.auth.models.User  из стандартной системы авторизации Django.
-
-5) Рядом с моделью Question определите менеджер реализующий следующие методы
-
-QuestionManager - менеджер модели Question
-new - метод возвращающий последние добавленные вопросы
-popular - метод возвращающий вопросы отсортированные по рейтингу
-'''
-
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+
 
 
 class QuestionManager(models.Manager):
@@ -43,13 +21,16 @@ class Question(models.Model):
     likes = models.ManyToManyField(User, related_name='liked_by_user')
     objects = QuestionManager()
 
+    def get_absolute_url(self):
+        return reverse('qa:single_question', args=[str(self.id)])
+
     def __str__(self):
         return self.title
 
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

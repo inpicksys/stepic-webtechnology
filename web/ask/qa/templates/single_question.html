@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>question {{question.id}}</title>
+</head>
+<body>
+    <h1>{{question.title}}</br> </h1>
+    {{question.text}}
+    <h3>Answers:</h3>
+    {% for answer in answers %}
+        <div class="answer-text">{{ answer.text }}</div>
+        <div class="answer-date">{{ answer.added_at }}</div>
+        </br>
+    {% endfor %}
+</body>
+</html>

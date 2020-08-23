@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New questions</title>
+</head>
+<body>
+    {% for q in page %}
+         <a href="{{ q.get_absolute_url }}">{{ q.title }} </a> </br>
+    {% endfor %}
+
+</body>
+</html>
