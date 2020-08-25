@@ -2,27 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>question {{question.id}}</title>
+    <title>Title</title>
 </head>
 <body>
-    <h1>{{question.title}}</br> </h1>
-    {{question.text}}
-    <h3>Answers:</h3>
-    {% for answer in answers %}
-        <div class="answer-text">{{ answer.text }}</div>
-        <div class="answer-date">{{ answer.added_at }}</div>
-        </br>
-    {% endfor %}
-
-    Add your own answer:
-
-    {% for e in answer_form.non_field_errors %}
+    {% for e in question_form.non_field_errors %}
         <div class="alert alert-danger">{{ e }}</div>
     {% endfor %}
-    <form class="form-horizontal" method="post" action={{question.get_absolute_url}}>
+    <form class="form-horizontal" method="post" action={{ question_url }}>
         {% csrf_token %}
         <fieldset>
-            {% for field in answer_form %}
+            {% for field in question_form %}
             <div class="control-group {% if field.errors %}has-error{% endif %}">
                  {% if field.errors %}{{field.errors}}{% endif %}
                 <label class="control-label">{{ field.label }}</label>

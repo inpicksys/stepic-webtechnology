@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-
 class QuestionManager(models.Manager):
     def new(self):
         return self.order_by('-added_at')
@@ -17,7 +16,7 @@ class Question(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(default=0)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question_author')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question_author', null=True)
     likes = models.ManyToManyField(User, related_name='liked_by_user')
     objects = QuestionManager()
 
@@ -27,11 +26,12 @@ class Question(models.Model):
     def __str__(self):
         return self.title
 
+
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title
